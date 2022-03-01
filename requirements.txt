@@ -1,2 +1,7 @@
 fastapi
 uvicorn
+pyairtable
+python-decouple
+bs4
+requests
+pandas
