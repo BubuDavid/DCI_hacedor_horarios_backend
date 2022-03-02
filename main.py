@@ -16,7 +16,7 @@ app = FastAPI()
 
 @app.get("/")
 def hello_endpoint():
-	return "Hello"
+	return {"Hola": "World"}
 
 @app.post("/get-schedule")
 def get_schedule_endpoint(my_subjects: List[str]):
