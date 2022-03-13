@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import FastAPI
 from decouple import config
-
+from fastapi.middleware.cors import CORSMiddleware
 
 from tools.airtable_tools import *
 from py_scheduler import *
@@ -14,12 +14,25 @@ air_table_name = config("AIRTABLE_TABLE_NAME")
 
 app = FastAPI()
 
+# CORS POLICY CORRECTION
+origins = [
+    "http://localhost:3000",
+	"https://bubudavid.github.io/*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_methods = ["GET", "POST"],
+)
+
 @app.get("/")
 def hello_endpoint():
 	return {"Hola": "World"}
 
 @app.post("/get-schedule")
-def get_schedule_endpoint(my_subjects: List[str]):
+async def get_schedule_endpoint(body: SubjectList):
+	my_subjects = body.subjects
 	json_all_subjects = get_airtable_table(
 		air_api_key,
 		air_base_id,
