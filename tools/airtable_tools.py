@@ -10,13 +10,13 @@ def get_airtable_table(api_key, base_id, table_name):
 def update_airtable_table(api_key, base_id, table_name, new_subjects):
 	table = get_airtable_table(api_key, base_id, table_name)
 	json_all_subjects = table.all()
+	ids = []
 	for subject in json_all_subjects:
-		table.delete(subject["id"])
+		ids.append(subject["id"])
 
-	print("Deleted them!")
-
+	table.batch_delete(ids)
+	print("Deleted!")
 	table.batch_create(new_subjects)
-
 	print("Created!")
 
 	return True
