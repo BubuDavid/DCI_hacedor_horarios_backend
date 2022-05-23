@@ -1,5 +1,4 @@
 # Mine
-py_scheduler/
 .vscode/
 # Byte-compiled / optimized / DLL files
 __pycache__/
