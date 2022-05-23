@@ -1,8 +1,10 @@
+from cgitb import handler
 from fastapi import FastAPI, Header, BackgroundTasks
 from decouple import config
 from fastapi.middleware.cors import CORSMiddleware
 from numpy import sort
 from py_scheduler.manage_exceptions import manage_empty_rows
+from mangum import Mangum
 
 from tools.airtable_tools import *
 from py_scheduler import *
@@ -117,8 +119,12 @@ async def update_table_endpoint(background_tasks: BackgroundTasks, password: str
 
 @app.get('/update-table')
 def update_table_method_get():
-	table = get_airtable_table(air_api_key, air_base_id, "updated_date")
-	last = table.all()[-1]
+	table = get_airtable_table(air_api_key, air_base_id, "update_date")
+	last = table.all()[-1]['fields']['updated_date']
+
 	return {
 		"last_update": last
 	}
+
+
+handler = Mangum(app)
