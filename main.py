@@ -87,7 +87,7 @@ async def update_table_endpoint(background_tasks: BackgroundTasks, password: str
 		}
 		for index, subject in enumerate(new_subject_names)
 	]
-
+	
 	background_tasks.add_task(
 		update_airtable_table,
 		air_api_key,
@@ -104,6 +104,21 @@ async def update_table_endpoint(background_tasks: BackgroundTasks, password: str
 		new_subject_names
 	)
 
+	background_tasks.add_task(
+		update_date,
+		air_api_key,
+		air_base_id,
+	)
+
 	return {
 		"Status": "Everything is fine! ❤️‍🔥, the updating is running in the background"
+	}
+
+
+@app.get('/update-table')
+def update_table_method_get():
+	table = get_airtable_table(air_api_key, air_base_id, "updated_date")
+	last = table.all()[-1]
+	return {
+		"last_update": last
 	}

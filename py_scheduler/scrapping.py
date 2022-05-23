@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from .tools import super_normalize
+from datetime import datetime
 
 def fetch_page(url):
 	page = requests.get(url)
