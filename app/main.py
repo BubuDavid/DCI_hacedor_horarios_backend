@@ -1,4 +1,3 @@
-from cgitb import handler
 from fastapi import FastAPI, Header, BackgroundTasks
 from decouple import config
 from fastapi.middleware.cors import CORSMiddleware
