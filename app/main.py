@@ -70,6 +70,7 @@ async def update_table_endpoint(background_tasks: BackgroundTasks, password: str
 		"day/hour/room1",
 		"day/hour/room2",
 		"day/hour/room3",
+		"day/hour/room4",
 		"professor1",
 		"professor_email1",
 		"professor2",
