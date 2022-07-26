@@ -13,6 +13,8 @@ class Subject:
 	'professor_email1',
 	'professor2',
 	'professor_email2',
+	'professor3',
+	'professor_email3',
 	'day1',
 	'day2',
 	'day3'
@@ -27,6 +29,8 @@ class Subject:
 		professor_email1: str = None,
 		professor2      : str = None,
 		professor_email2: str = None,
+		professor3      : str = None,
+		professor_email3: str = None,
 		day1            : str = None,
 		day2            : str = None,
 		day3            : str = None,
@@ -40,6 +44,8 @@ class Subject:
 		self.professor_email1 = professor_email1
 		self.professor2       = professor2
 		self.professor_email2 = professor_email2
+		self.professor3       = professor3
+		self.professor_email3 = professor_email3
 		self.day1             = day1
 		self.day2             = day2
 		self.day3             = day3

@@ -75,6 +75,8 @@ async def update_table_endpoint(background_tasks: BackgroundTasks, password: str
 		"professor_email1",
 		"professor2",
 		"professor_email2",
+		"professor3",
+		"professor_email3",
 	]
 	url = "http://www.dci.ugto.mx/estudiantes/index.php/mcursos/horarios-licenciatura"
 	new_subjects = scrap(url, column_names)
