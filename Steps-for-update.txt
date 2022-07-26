@@ -1,0 +1,5 @@
+1. Open server in localhost
+2. Run Test.py script
+3. Download from airtable
+4. Clean in Colab script
+5. Update the airtable
