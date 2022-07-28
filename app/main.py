@@ -23,14 +23,13 @@ except:
 app = FastAPI()
 
 # CORS POLICY CORRECTION
-origins = [
-    "*"
-]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = origins,
-    allow_methods = ["GET", "POST"],
+    allow_origins = ["*"],
+	allow_credentials = True,
+    allow_methods = ["*"],
+	allow_headers = ["*"],
 )
 
 @app.get("/")
