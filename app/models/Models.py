@@ -1,4 +1,3 @@
-from typing import Dict
 from pydantic import BaseModel, Field, conlist
 
 # Class for receiving the Body in the Endpoints of request schedules
@@ -8,9 +7,12 @@ class SubjectList(BaseModel):
 		str,
 		min_items = 0,
 		max_items = 10
-	)
-
-	# And a dictionary of constrains
-	constraints: Dict[str, str] = Field(
-		default=None
+	) = Field(
+		...,
+		example = [
+			'ALGEBRA LINEAL AVANZADA',
+			'INGLES III',
+			'VARIABLE COMPLEJA',
+			'FUNDAMIENTOS DE PROCESAMIENTO DIGITAL DE SENALES'
+		]
 	)

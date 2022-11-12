@@ -1,7 +1,13 @@
+# FastAPI imports
+from fastapi import HTTPException
+from typing import Optional
+
 # My imports
 from config import config_app
-from tools.airtable_tools import get_subject_name_list, get_professor_name_list
-from models.SubjectList import SubjectList
+from tools.airtable_tools import get_subject_name_list, get_professor_name_list, get_all_schedules
+from models.Models import SubjectList
+from py_scheduler.validations import validate_body_request
+from py_scheduler.py_scheduler import generate_my_schedules
 
 # ====== FASTAPI CONFIGURATION ====== #
 app = config_app()
@@ -31,6 +37,15 @@ def professor_names():
 @app.post("/get-schedules")
 def get_schedules(subject_list: SubjectList):
 	subjects = subject_list.subjects
-	constraints = subject_list.constraints
+	all_schedules = get_all_schedules()
+	# Validation of Data
+	try:
+		norm_subjects = validate_body_request(subjects)
+	except AssertionError as error:
+		raise HTTPException(
+			status_code=422,
+			detail=str(error))
 
-	return {'subjects': subjects, 'constraints': constraints}
+	# Generate schedules with validated data
+	schedules = generate_my_schedules(all_schedules, norm_subjects)
+	return schedules

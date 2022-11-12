@@ -46,3 +46,17 @@ def get_professor_name_list():
 			professor_names.add(name.strip())
 
 	return sorted(list(professor_names))
+
+
+def get_all_schedules():
+	# Get all the table
+	table = get_subjects_table().all()
+	# Map the name field into a variable
+	records = map(lambda record: record['fields'], table)
+	# Transform this to a dictionary to access the data in O(1)
+	all_schedules = {}
+	for record in records:
+		all_schedules[record['_ID']] = record
+
+
+	return all_schedules
