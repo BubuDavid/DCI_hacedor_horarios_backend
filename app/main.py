@@ -35,7 +35,7 @@ def professor_names():
 
 # Endpoint for getting all the combinations given a list of subjects
 @app.post("/get-schedules")
-def get_schedules(subject_list: SubjectList):
+async def get_schedules(subject_list: SubjectList):
 	subjects = subject_list.subjects
 	all_schedules = get_all_schedules()
 	# Validation of Data
