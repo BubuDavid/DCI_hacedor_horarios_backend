@@ -114,10 +114,11 @@ def are_spliced(sid1, sid2, all_schedules):
 				# print(day1, '->', schedule1[day1])
 				# print(day2, '->', schedule2[day2])
 				# print()
-				if check_spliced_time(schedule1, schedule2, day1[-1], day2[-1]): return True
+				if check_spliced_time(schedule1, schedule2, day1[-1], day2[-1]): 
+					return True, [schedule1, schedule2]
 				# print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
 
-	return False
+	return False, []
 
 def schedule_validator(all_schedules, combination_indices):
 	"""
@@ -126,16 +127,25 @@ def schedule_validator(all_schedules, combination_indices):
 	Input: 
 		- all_schedules: A dictionary of all the schedules in the page
 		- combination_index: combination list ['4', '123', '140']
-	Returns: True or False depending on the combination_index list, if the schedules are spliced or not
+	Returns: True or False depending on the combination_index list, if the schedules are valid or not
 	Return Type: Bool
 	"""
 	# We need to validate for every pair in the schedules
 	for index1, schedule_id1 in enumerate(combination_indices):
 		for schedule_id2 in combination_indices[index1 + 1:]:
-			if are_spliced(schedule_id1, schedule_id2, all_schedules):
-				return False
+			are_spliced_checker, spliced_subjects = are_spliced(schedule_id1, schedule_id2, all_schedules)
+			if are_spliced_checker:
+				spliced_names = list(map(
+					lambda subject: {
+						'name': subject['NAME'], 
+						'Group': subject['GROUP'],
+						'_ID': subject['_ID']
+					},
+					spliced_subjects
+				))
+				return False, spliced_names
 
-	return True
+	return True, []
 
 # 👇👇👇👇 THIS IS THE "MAIN" FUNCTION 👇👇👇👇
 def generate_my_schedules(all_schedules, subjects):
@@ -144,18 +154,16 @@ def generate_my_schedules(all_schedules, subjects):
 	# Generate combinations
 	all_combinations_index = create_all_combinations(index_matrix)
 	# Validate those combinations
-	valid_combinations = list(
-		filter(
-			# This is a lambda function because I need to pass some parameters extra to that schedule validator
-			lambda combination: schedule_validator(all_schedules, combination), 
-			all_combinations_index
-		)
-	)
-
-	print(index_matrix)
-	print(all_combinations_index)
-	print(valid_combinations)
-
+	valid_combinations = []
+	for combination in all_combinations_index:
+		is_valid, spliced_subjects = schedule_validator(all_schedules, combination)
+		if is_valid:
+			valid_combinations.append(combination)
+	# If there are not valid combinations then we need to notify the user
+	if not valid_combinations:
+		return False, spliced_subjects
+	
+	# Translate the valid schedule ids to actual schedule objects
 	valid_schedules = []
 	for combination in valid_combinations:
 		new_schedule = []
@@ -164,7 +172,7 @@ def generate_my_schedules(all_schedules, subjects):
 
 		valid_schedules.append(new_schedule)
 
-	return valid_schedules
+	return True, valid_schedules
 
 
 # 🔝 This is the start 🔝 #
