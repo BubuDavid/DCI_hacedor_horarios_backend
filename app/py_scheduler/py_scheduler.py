@@ -29,7 +29,13 @@ def create_index_matrix(all_schedules, subjects):
 	for index_list in subject_indices.values():
 		index_matrix.append(index_list)
 
-	return index_matrix
+	# Filter subjects that not exists in the database
+	index_matrix_filtered = list(filter(
+		lambda sub_list: bool(len(sub_list)),
+		index_matrix
+	))
+	
+	return index_matrix_filtered
 
 # All combinations generator
 def create_all_combinations(schedule_index_matrix):
