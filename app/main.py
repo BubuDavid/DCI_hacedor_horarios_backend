@@ -52,5 +52,6 @@ async def get_schedules(subject_list: SubjectList):
 	# Return in case there are combinations or not
 	return {
 		'at_least_one': at_least_one,
+		'length_of_result': len(result),
 		'result': result
 	}
