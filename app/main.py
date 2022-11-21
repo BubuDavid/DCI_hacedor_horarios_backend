@@ -47,7 +47,7 @@ async def get_schedules(subject_list: SubjectList):
 			detail=str(error))
 
 	# Generate schedules with validated data
-	at_least_one, result = generate_my_schedules(all_schedules, norm_subjects)
+	result = generate_my_schedules(all_schedules, norm_subjects)
 	
 	# Return in case there are combinations or not
 	return {

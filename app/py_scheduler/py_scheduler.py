@@ -157,6 +157,8 @@ def schedule_validator(all_schedules, combination_indices):
 def generate_my_schedules(all_schedules, subjects):
 	# Create the index matrix, see 👆 to understand what it does:
 	index_matrix = create_index_matrix(all_schedules, subjects)
+	if not index_matrix:
+		return []
 	# Generate combinations
 	all_combinations_index = create_all_combinations(index_matrix)
 	# Validate those combinations
@@ -167,7 +169,7 @@ def generate_my_schedules(all_schedules, subjects):
 			valid_combinations.append(combination)
 	# If there are not valid combinations then we need to notify the user
 	if not valid_combinations:
-		return False, spliced_subjects
+		return spliced_subjects
 	
 	# Translate the valid schedule ids to actual schedule objects
 	valid_schedules = []
@@ -178,7 +180,7 @@ def generate_my_schedules(all_schedules, subjects):
 
 		valid_schedules.append(new_schedule)
 
-	return True, valid_schedules
+	return valid_schedules
 
 
 # 🔝 This is the start 🔝 #
