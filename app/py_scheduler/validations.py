@@ -10,5 +10,5 @@ def validate_body_request(subjects):
 		# Normalize data
 		normalized_subjects.append(normalize_text(subject))
 
-	return subjects
+	return normalized_subjects
 	

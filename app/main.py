@@ -1,6 +1,5 @@
 # FastAPI imports
 from fastapi import HTTPException
-from typing import Optional
 
 # My imports
 from config import config_app

@@ -37,13 +37,20 @@ def get_professor_name_list():
 	# Get all the table
 	table = get_subjects_table().all()
 	# Map the name field into a variable
-	names_field = list(map(lambda record: record['fields']['PROFESSORS'], table))
+	names_field = list(map(
+		lambda record:
+		record['fields']['PROFESSORS'] if 'PROFESSORS' in record['fields'] else None,
+		table))
 	# Filter all the professors
+
+	# FIX 200 IN DATA CLEANSING
 	professor_names = set()
 	for field in names_field:
-		names = field.split('/')
-		for name in names:
-			professor_names.add(name.strip())
+		if field:
+			names = field.split('/')
+			for name in names:
+				if name:
+					professor_names.add(name.strip())
 
 	return sorted(list(professor_names))
 
