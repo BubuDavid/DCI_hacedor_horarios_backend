@@ -11,8 +11,9 @@ class SubjectList(BaseModel):
 		...,
 		example = [
 			'ALGEBRA LINEAL AVANZADA',
-			'INGLES III',
+			'INGLES I',
 			'VARIABLE COMPLEJA',
+			'MATEMATICAS SUPERIORES'
 			'FUNDAMIENTOS DE PROCESAMIENTO DIGITAL DE SENALES'
 		]
 	)

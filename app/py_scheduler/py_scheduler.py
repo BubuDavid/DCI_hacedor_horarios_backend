@@ -69,24 +69,17 @@ def check_spliced_time(s1, s2, i1, i2):
 	# Get the correct column time for comparison
 	s1_time_column = f'TIME{i1}'
 	s2_time_column = f'TIME{i2}'
-	# print(s1_time_column, '->', s1[s1_time_column])
-	# print(s2_time_column, '->', s2[s2_time_column])
 
 	# Separate in parts, start and end for each schedule
 	# The simplest way to do this is to compare with numbers if the ranges are not splicing.
 	# That is why I am mapping to float, also, it is probable that some times have an ":" that's why I replace it.
 	start1, end1 = map(lambda t: float(t.replace(':', '.')), s1[s1_time_column].split('-'))
 	start2, end2 = map(lambda t: float(t.replace(':', '.')), s2[s2_time_column].split('-'))
-	# print()
-	# print(start1, end1)
-	# print(start2, end2)
 
 	# Comparing time!
 	if start1 >= end2 or start2 >= end1:
-		# print("No chocan")
 		return False
 	else:
-		# print("chocan")
 		return True
 
 
@@ -114,15 +107,8 @@ def are_spliced(sid1, sid2, all_schedules):
 	for day1 in s1_day_columns:
 		for day2 in s2_day_columns:
 			if schedule1[day1] == schedule2[day2]:
-				# print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
-				# print(schedule1)
-				# print(schedule2)
-				# print(day1, '->', schedule1[day1])
-				# print(day2, '->', schedule2[day2])
-				# print()
 				if check_spliced_time(schedule1, schedule2, day1[-1], day2[-1]): 
 					return True, [schedule1, schedule2]
-				# print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
 
 	return False, []
 
