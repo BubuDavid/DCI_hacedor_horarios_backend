@@ -46,10 +46,11 @@ async def get_schedules(subject_list: SubjectList):
 			detail=str(error))
 
 	# Generate schedules with validated data
-	result = generate_my_schedules(all_schedules, norm_subjects)
+	there_are_combs, result = generate_my_schedules(all_schedules, norm_subjects)
 	
 	# Return in case there are combinations or not
 	return {
+		'there_are_combs': there_are_combs,
 		'length_of_result': len(result),
 		'result': result
 	}
