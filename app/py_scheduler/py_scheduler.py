@@ -129,8 +129,8 @@ def schedule_validator(all_schedules, combination_indices):
 			if are_spliced_checker:
 				spliced_names = list(map(
 					lambda subject: {
-						'name': subject['NAME'], 
-						'Group': subject['GROUP'],
+						'NAME': subject['NAME'], 
+						'GROUP': subject['GROUP'],
 						'_ID': subject['_ID']
 					},
 					spliced_subjects
