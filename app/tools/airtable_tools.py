@@ -33,26 +33,23 @@ def get_subject_name_list():
 	# Return the sorted list
 	return sorted(list(names))
 
-def get_professor_name_list():
+def get_professor_name_list(subjects):
 	# Get all the table
 	table = get_subjects_table().all()
-	# Map the name field into a variable
-	names_field = list(map(
-		lambda record:
-		record['fields']['PROFESSORS'] if 'PROFESSORS' in record['fields'] else None,
-		table))
-	# Filter all the professors
+	# Map the name field into a dictionary
+	subjects_professors = {subject:set() for subject in subjects}
+	for record in table:
+		if record['fields']['NAME'] in subjects:
+			professors = [professor.strip() for professor in record['fields']['PROFESSORS'].split('/')]
+			for professor in professors:
+				subjects_professors[record['fields']['NAME']].add(professor)
 
-	# FIX 200 IN DATA CLEANSING
-	professor_names = set()
-	for field in names_field:
-		if field:
-			names = field.split('/')
-			for name in names:
-				if name:
-					professor_names.add(name.strip())
+	# Just parsing sets into lists
+	for subject, professor_set in subjects_professors.items():
+		subjects_professors[subject] = list(professor_set)
 
-	return sorted(list(professor_names))
+	return subjects_professors
+
 
 
 def get_all_schedules():

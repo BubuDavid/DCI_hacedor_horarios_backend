@@ -139,6 +139,26 @@ def schedule_validator(all_schedules, combination_indices):
 
 	return True, []
 
+def filter_by_professor(schedules, professors):
+	new_schedules = []
+	professor_detector = False
+	for schedule in schedules:
+		for subject in schedule:
+			professor_detector = False
+			if subject['NAME'] in professors:
+				for professor in professors[subject['NAME']]:
+					if professor in subject['PROFESSORS']:
+						professor_detector = True
+						break
+			if professor_detector:
+				break
+		if not professor_detector:
+			new_schedules.append(schedule)
+
+	return len(new_schedules) > 0, new_schedules
+			
+
+
 # 👇👇👇👇 THIS IS THE "MAIN" FUNCTION 👇👇👇👇
 def generate_my_schedules(all_schedules, subjects):
 	# Create the index matrix, see 👆 to understand what it does:
