@@ -4,3 +4,4 @@ pyairtable
 starlette
 pydantic
 requests
+uvicorn[standard]
