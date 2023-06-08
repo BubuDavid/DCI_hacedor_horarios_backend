@@ -1,0 +1,21 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: app
+    src: ./
+    engine: python3.9
+    primary: true
+    run: uvicorn main:app
+    public_routes:
+      - "/*"
+    presets:
+      env:
+        - name: AIRTABLE_API_KEY
+          description: Your key for the airtable platform
+          default: "cool"
+        - name: AIRTABLE_BASE_ID
+          description: Base ID
+          default: "base id"
+        - name: AIRTABLE_TABLE_NAME
+          description: Name of the table
+          default: "materias"
