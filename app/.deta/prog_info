@@ -1,1 +1,0 @@
-{"id":"45e65f49-af88-4125-97da-aff0462ce96d","space":27557,"runtime":"python3.9","name":"app","path":"m30o10","project":"b039oo29","account":"144798365827","region":"us-east-1","deps":["fastapi","pyairtable","python-decouple","starlette","pydantic","requests"],"envs":["AIRTABLE_API_KEY","AIRTABLE_BASE_ID","AIRTABLE_TABLE_NAME"],"public":true,"log_level":"debug","cron":""}
